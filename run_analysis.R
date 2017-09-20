@@ -10,6 +10,10 @@ run_analysis<- function()
   library("stringr")
   library("data.table")
   
+  wd <- getwd()
+  
+  print(wd)
+  
   fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
   
   destFile <- "UCI_HAR_Dataset.zip"
@@ -19,22 +23,24 @@ run_analysis<- function()
   unzip(destFile)
 
   #load feature names
-  featNames <- read.table("./UCI HAR Dataset/features.txt")
+  featNames <- read.table("~/UCI HAR Dataset/features.txt")
 
   
+  View(featNames)
+  
   #load activity labels
-  actLabels <- read.table("./UCI HAR Dataset/activity_labels.txt", header = FALSE)
+  actLabels <- read.table("~/UCI HAR Dataset/activity_labels.txt", header = FALSE)
   
   
   #load training data
-  subjTrng <- read.table("./UCI HAR Dataset/train/subject_train.txt", header = FALSE)
-  actTrng <- read.table("./UCI HAR Dataset/train/y_train.txt", header = FALSE)
-  featTrng <- read.table("./UCI HAR Dataset/train/X_train.txt", header = FALSE)
+  subjTrng <- read.table("~/UCI HAR Dataset/train/subject_train.txt", header = FALSE)
+  actTrng <- read.table("~/UCI HAR Dataset/train/y_train.txt", header = FALSE)
+  featTrng <- read.table("~/UCI HAR Dataset/train/X_train.txt", header = FALSE)
   
   #load test data
-  subjTest <- read.table("./UCI HAR Dataset/test/subject_test.txt", header = FALSE)
-  actTest <- read.table("./UCI HAR Dataset/test/y_test.txt", header = FALSE)
-  featTest <- read.table("./UCI HAR Dataset/test/X_test.txt", header = FALSE)
+  subjTest <- read.table("~/UCI HAR Dataset/test/subject_test.txt", header = FALSE)
+  actTest <- read.table("~/UCI HAR Dataset/test/y_test.txt", header = FALSE)
+  featTest <- read.table("~/UCI HAR Dataset/test/X_test.txt", header = FALSE)
   
   #bind training and test data
   subj <- rbind(subjTrng, subjTest)
@@ -79,3 +85,5 @@ run_analysis<- function()
  
 
 }
+
+run_analysis()
