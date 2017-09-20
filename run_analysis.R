@@ -1,19 +1,10 @@
-
-
-
-
-
 run_analysis<- function()
 {
-  
+
   library("dplyr")
   library("stringr")
   library("data.table")
-  
-  wd <- getwd()
-  
-  print(wd)
-  
+
   fileUrl <- "https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip"
   
   destFile <- "UCI_HAR_Dataset.zip"
@@ -54,7 +45,6 @@ run_analysis<- function()
 
   #construt observations
   obs <- cbind(subj,act,feat)
-
   
   #make observation columns more intention revealing
   names(obs)<-gsub("Acc", "Accelerometer", names(obs))
@@ -69,18 +59,17 @@ run_analysis<- function()
   names(obs)<-gsub("-freq()", "Frequency", names(obs), ignore.case = TRUE)
   names(obs)<-gsub("angle", "Angle", names(obs))
   names(obs)<-gsub("gravity", "Gravity", names(obs))
-  
- 
+
   #reduce observation columns to only the activity, subject, standard deviation & mean values
   obs <- obs[grep("(activity|subject|std|mean)",names(obs),ignore.case = TRUE)]
- 
 
   #tidy data set average for each activity and subject.
   tidyData <- aggregate(. ~Subject + Activity, obs, mean)
   
+  #order data
   tidyData <- tidyData[order(tidyData$Subject,tidyData$Activity),]
   
-  
+  #write to file
   write.table(tidyData, file = "Tidy.txt", row.names = FALSE)
  
 
